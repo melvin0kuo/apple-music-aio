@@ -1,0 +1,429 @@
+:root {
+    --theme-color-1: rgba(142, 36, 170, 0.6); /* Purple */
+    --theme-color-2: rgba(229, 9, 20, 0.4);   /* Apple Red */
+    --theme-color-3: rgba(21, 101, 192, 0.5);  /* Deep Blue */
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --progress-bg: rgba(255, 255, 255, 0.15);
+    --progress-fill: #ffffff;
+    --accent-color: #ff2d55; /* Apple Music Pink-Red */
+    --card-bg: rgba(0, 0, 0, 0.4);
+    --border-glass: rgba(255, 255, 255, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #050505;
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-primary);
+}
+
+/* Ambient Blur Background */
+.ambient-bg {
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    z-index: 1;
+    filter: blur(60px);
+    opacity: 0.85;
+    background: radial-gradient(
+        circle at 30% 30%,
+        var(--theme-color-1) 0%,
+        transparent 50%
+    ),
+    radial-gradient(
+        circle at 70% 70%,
+        var(--theme-color-2) 0%,
+        transparent 50%
+    ),
+    radial-gradient(
+        circle at 50% 50%,
+        var(--theme-color-3) 0%,
+        transparent 60%
+    );
+    background-color: #07070a;
+    transition: background 2s ease-in-out;
+    animation: drift 25s infinite alternate ease-in-out;
+}
+
+.ambient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: radial-gradient(
+        circle at center,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.85) 90%
+    );
+}
+
+@keyframes drift {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+/* Main Widget Container */
+.widget-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    /* Maintain a strict 1:1 aspect ratio square for AIO displays */
+    max-width: 100vh;
+    max-height: 100vw;
+    margin: 0 auto;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Screen Switcher */
+.screen {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.95);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 4% 0;
+}
+
+.screen.active-screen {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+/* --- ACTIVE MEDIA SCREEN --- */
+
+/* Album Art styling */
+.album-art-container {
+    position: relative;
+    width: 52%;
+    aspect-ratio: 1;
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-glass);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.album-art-container:hover {
+    transform: scale(1.03);
+}
+
+.album-art {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.album-art.loaded {
+    opacity: 1;
+}
+
+.playback-badge {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--border-glass);
+    opacity: 0.8;
+}
+
+.playback-icon {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    transition: all 0.2s ease;
+}
+
+/* Dynamic State Icons via JS adding classes */
+.playback-icon.state-playing {
+    width: 8px;
+    height: 8px;
+    border-width: 0 2px 0 2px;
+    border-color: white;
+    border-style: double;
+}
+
+.playback-icon.state-paused {
+    width: 0;
+    height: 8px;
+    border-width: 4px 0 4px 7px;
+    border-color: transparent transparent transparent white;
+}
+
+/* Metadata Text & Marquees */
+.metadata {
+    width: 100%;
+    text-align: center;
+    margin: 3% 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    /* Ensure text layout stays out of the extreme circular corners */
+    padding: 0 8%;
+}
+
+.title-marquee-container, .artist-marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+}
+
+.title {
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    letter-spacing: -0.02em;
+    display: inline-block;
+}
+
+.artist {
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    letter-spacing: -0.01em;
+    display: inline-block;
+}
+
+/* Marquee Class added by JS dynamically when text is too long */
+.marquee-active {
+    animation: marquee 12s linear infinite;
+    padding-left: 20px;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+/* Sleek Timeline Progress */
+.progress-section {
+    width: 84%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 2%;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 5px;
+    background: var(--progress-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--progress-fill);
+    border-radius: 10px;
+    box-shadow: 0 0 8px var(--accent-color);
+    transition: width 0.1s linear; /* Smooth micro-increments */
+}
+
+.time-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 0.05em;
+}
+
+/* Animated Wave Visualizer */
+.wave-visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 14px;
+    opacity: 0.85;
+}
+
+.wave-visualizer .bar {
+    width: 2.5px;
+    height: 2px;
+    background-color: var(--accent-color);
+    border-radius: 1px;
+    transition: height 0.2s ease;
+}
+
+/* Wave bouncing animations */
+.playing-wave .bar {
+    animation: bounce 1.2s infinite ease-in-out alternate;
+}
+
+.playing-wave .bar-1 { animation-duration: 0.8s; animation-delay: 0.1s; }
+.playing-wave .bar-2 { animation-duration: 1.1s; animation-delay: 0.3s; }
+.playing-wave .bar-3 { animation-duration: 0.7s; animation-delay: 0.0s; }
+.playing-wave .bar-4 { animation-duration: 0.9s; animation-delay: 0.4s; }
+.playing-wave .bar-5 { animation-duration: 1.0s; animation-delay: 0.2s; }
+
+@keyframes bounce {
+    0% { height: 2px; }
+    100% { height: 14px; }
+}
+
+/* --- STANDBY SCREEN (SLEEK CLOCK) --- */
+.standby-screen {
+    justify-content: center;
+    gap: 15px;
+}
+
+.clock-face {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border-glass);
+    padding: 30px 40px;
+    border-radius: 28px;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    width: 85%;
+    max-width: 280px;
+}
+
+.time-display {
+    font-size: 3.2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    line-height: 1;
+    background: linear-gradient(180deg, #ffffff 0%, #d5d5d5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.date-display {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.status-msg {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+}
+
+.pulse-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.9); opacity: 0.4; }
+    50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 8px var(--accent-color); }
+    100% { transform: scale(0.9); opacity: 0.4; }
+}
+
+/* Circular cropping safety zone for AIO screens (mostly aesthetic for web review) */
+@media (max-width: 600px) {
+    .title { font-size: 1.35rem; }
+    .artist { font-size: 0.95rem; }
+    .clock-face { width: 90%; padding: 25px; }
+    .time-display { font-size: 2.8rem; }
+}
+
+/* Circular Screen Optimization (e.g. NZXT Kraken circular screen) */
+.circular-layout .screen {
+    width: 86%;
+    height: 86%;
+    padding: 7% 0;
+}
+
+.circular-layout .album-art-container {
+    width: 44%; /* Smaller album art to leave space for circle edges */
+    border-radius: 12px; /* Slightly smaller radius to match smaller art */
+}
+
+.circular-layout .metadata {
+    padding: 0 14%; /* Extra side padding so text doesn't hit circle edges */
+    margin: 2% 0;
+}
+
+.circular-layout .title {
+    font-size: 1.25rem; /* Slightly smaller text */
+}
+
+.circular-layout .artist {
+    font-size: 0.88rem;
+}
+
+.circular-layout .progress-section {
+    width: 72%; /* Narrower progress bar to fit inside the bottom curve of the circle */
+    margin-bottom: 5%;
+}
+
+.circular-layout .clock-face {
+    transform: scale(0.85); /* Shrink standby clock to fit circle */
+    margin: auto;
+}
+

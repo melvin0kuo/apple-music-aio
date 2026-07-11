@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Apple Music Now Playing Widget</title>
+    <!-- Modern premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- Ambient Blur Background -->
+    <div class="ambient-bg" id="ambientBg"></div>
+    <div class="ambient-overlay"></div>
+
+    <!-- Main Widget Container -->
+    <div class="widget-container" id="widgetContainer">
+        
+        <!-- Active Media Screen -->
+        <div class="screen active-screen" id="activeScreen">
+            <div class="album-art-container">
+                <img src="" alt="Album Art" class="album-art" id="albumArt">
+                <div class="vinyl-overlay" id="vinylOverlay"></div>
+                <div class="playback-badge" id="playbackBadge">
+                    <!-- Pause/Play icon dynamically styled -->
+                    <div class="playback-icon" id="playbackIcon"></div>
+                </div>
+            </div>
+
+            <div class="metadata">
+                <div class="title-marquee-container">
+                    <h1 class="title" id="trackTitle">Not Playing</h1>
+                </div>
+                <div class="artist-marquee-container">
+                    <h2 class="artist" id="trackArtist">Standby</h2>
+                </div>
+            </div>
+
+            <!-- Sleek Timeline Progress -->
+            <div class="progress-section">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="time-info">
+                    <span class="time-elapsed" id="timeElapsed">0:00</span>
+                    <!-- Wave Visualizer inside progress section -->
+                    <div class="wave-visualizer" id="waveVisualizer">
+                        <div class="bar bar-1"></div>
+                        <div class="bar bar-2"></div>
+                        <div class="bar bar-3"></div>
+                        <div class="bar bar-4"></div>
+                        <div class="bar bar-5"></div>
+                    </div>
+                    <span class="time-duration" id="timeDuration">0:00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Standby Screen (Sleek Hardware Clock) -->
+        <div class="screen standby-screen" id="standbyScreen">
+            <div class="clock-face">
+                <div class="time-display" id="clockTime">00:00</div>
+                <div class="date-display" id="clockDate">Mon, Jan 01</div>
+                <div class="status-msg">
+                    <span class="pulse-dot"></span>
+                    <span id="standbyMsg">Waiting for Apple Music...</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
