@@ -28,34 +28,66 @@ html, body {
     color: var(--text-primary);
 }
 
-/* Ambient Blur Background */
+/* Ambient Blur Background (Liquid Aurora) */
 .ambient-bg {
     position: absolute;
-    top: -20%;
-    left: -20%;
-    width: 140%;
-    height: 140%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 1;
-    filter: blur(60px);
-    opacity: 0.85;
-    background: radial-gradient(
-        circle at 30% 30%,
-        var(--theme-color-1) 0%,
-        transparent 50%
-    ),
-    radial-gradient(
-        circle at 70% 70%,
-        var(--theme-color-2) 0%,
-        transparent 50%
-    ),
-    radial-gradient(
-        circle at 50% 50%,
-        var(--theme-color-3) 0%,
-        transparent 60%
-    );
-    background-color: #07070a;
+    background-color: #040406;
+    overflow: hidden;
+}
+
+.blob {
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.45;
+    mix-blend-mode: screen;
     transition: background 2s ease-in-out;
-    animation: drift 25s infinite alternate ease-in-out;
+}
+
+.blob-1 {
+    top: -15%;
+    left: -15%;
+    background: var(--theme-color-1);
+    animation: float-1 22s infinite alternate ease-in-out;
+}
+
+.blob-2 {
+    bottom: -15%;
+    right: -15%;
+    background: var(--theme-color-2);
+    animation: float-2 26s infinite alternate ease-in-out;
+}
+
+.blob-3 {
+    top: 25%;
+    left: 15%;
+    background: var(--theme-color-3);
+    animation: float-3 20s infinite alternate ease-in-out;
+}
+
+@keyframes float-1 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(15%, 10%) scale(1.15); }
+    100% { transform: translate(-5%, 15%) scale(0.95); }
+}
+
+@keyframes float-2 {
+    0% { transform: translate(0, 0) scale(1.1); }
+    50% { transform: translate(-10%, -15%) scale(0.85); }
+    100% { transform: translate(8%, -5%) scale(1.15); }
+}
+
+@keyframes float-3 {
+    0% { transform: translate(0, 0) scale(0.95); }
+    50% { transform: translate(5%, -10%) scale(1.05); }
+    100% { transform: translate(-12%, 8%) scale(1.0); }
 }
 
 .ambient-overlay {
@@ -124,11 +156,49 @@ html, body {
 
 /* --- ACTIVE MEDIA SCREEN --- */
 
-/* Album Art styling */
-.album-art-container {
+/* Album Art styling & wrapper */
+.album-art-wrapper {
     position: relative;
     width: 52%;
     aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.album-art-glow {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 26px;
+    background: linear-gradient(135deg, var(--theme-color-1), var(--theme-color-2), var(--theme-color-3));
+    z-index: -1;
+    filter: blur(22px);
+    opacity: 0;
+    transition: opacity 1s ease-in-out, background 2s ease-in-out;
+}
+
+.playing-glow {
+    opacity: 0.75;
+    animation: rotate-glow 12s linear infinite, pulse-glow 3.5s infinite ease-in-out alternate;
+}
+
+@keyframes rotate-glow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse-glow {
+    0% { filter: blur(18px); opacity: 0.55; }
+    100% { filter: blur(26px); opacity: 0.85; }
+}
+
+.album-art-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
     border-radius: 18px;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-glass);
     overflow: hidden;
@@ -289,13 +359,13 @@ html, body {
 .wave-visualizer {
     display: flex;
     align-items: flex-end;
-    gap: 3px;
+    gap: 2.5px;
     height: 14px;
     opacity: 0.85;
 }
 
 .wave-visualizer .bar {
-    width: 2.5px;
+    width: 2.2px;
     height: 2px;
     background-color: var(--accent-color);
     border-radius: 1px;
@@ -312,6 +382,13 @@ html, body {
 .playing-wave .bar-3 { animation-duration: 0.7s; animation-delay: 0.0s; }
 .playing-wave .bar-4 { animation-duration: 0.9s; animation-delay: 0.4s; }
 .playing-wave .bar-5 { animation-duration: 1.0s; animation-delay: 0.2s; }
+.playing-wave .bar-6 { animation-duration: 0.75s; animation-delay: 0.15s; }
+.playing-wave .bar-7 { animation-duration: 1.15s; animation-delay: 0.35s; }
+.playing-wave .bar-8 { animation-duration: 0.65s; animation-delay: 0.05s; }
+.playing-wave .bar-9 { animation-duration: 0.95s; animation-delay: 0.45s; }
+.playing-wave .bar-10 { animation-duration: 1.05s; animation-delay: 0.25s; }
+.playing-wave .bar-11 { animation-duration: 0.85s; animation-delay: 0.08s; }
+.playing-wave .bar-12 { animation-duration: 0.92s; animation-delay: 0.18s; }
 
 @keyframes bounce {
     0% { height: 2px; }
@@ -399,8 +476,12 @@ html, body {
     padding: 7% 0;
 }
 
-.circular-layout .album-art-container {
+.circular-layout .album-art-wrapper {
     width: 44%; /* Smaller album art to leave space for circle edges */
+}
+
+.circular-layout .album-art-container {
+    width: 100%;
     border-radius: 12px; /* Slightly smaller radius to match smaller art */
 }
 

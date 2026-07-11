@@ -12,7 +12,11 @@
 </head>
 <body>
     <!-- Ambient Blur Background -->
-    <div class="ambient-bg" id="ambientBg"></div>
+    <div class="ambient-bg" id="ambientBg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
     <div class="ambient-overlay"></div>
 
     <!-- Main Widget Container -->
@@ -20,12 +24,15 @@
         
         <!-- Active Media Screen -->
         <div class="screen active-screen" id="activeScreen">
-            <div class="album-art-container">
-                <img src="" alt="Album Art" class="album-art" id="albumArt">
-                <div class="vinyl-overlay" id="vinylOverlay"></div>
-                <div class="playback-badge" id="playbackBadge">
-                    <!-- Pause/Play icon dynamically styled -->
-                    <div class="playback-icon" id="playbackIcon"></div>
+            <div class="album-art-wrapper">
+                <div class="album-art-glow" id="albumArtGlow"></div>
+                <div class="album-art-container">
+                    <img src="" alt="Album Art" class="album-art" id="albumArt">
+                    <div class="vinyl-overlay" id="vinylOverlay"></div>
+                    <div class="playback-badge" id="playbackBadge">
+                        <!-- Pause/Play icon dynamically styled -->
+                        <div class="playback-icon" id="playbackIcon"></div>
+                    </div>
                 </div>
             </div>
 
@@ -45,13 +52,20 @@
                 </div>
                 <div class="time-info">
                     <span class="time-elapsed" id="timeElapsed">0:00</span>
-                    <!-- Wave Visualizer inside progress section -->
+                    <!-- Rich Wave Visualizer -->
                     <div class="wave-visualizer" id="waveVisualizer">
                         <div class="bar bar-1"></div>
                         <div class="bar bar-2"></div>
                         <div class="bar bar-3"></div>
                         <div class="bar bar-4"></div>
                         <div class="bar bar-5"></div>
+                        <div class="bar bar-6"></div>
+                        <div class="bar bar-7"></div>
+                        <div class="bar bar-8"></div>
+                        <div class="bar bar-9"></div>
+                        <div class="bar bar-10"></div>
+                        <div class="bar bar-11"></div>
+                        <div class="bar bar-12"></div>
                     </div>
                     <span class="time-duration" id="timeDuration">0:00</span>
                 </div>

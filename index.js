@@ -25,6 +25,7 @@ const ambientBg = document.getElementById('ambientBg');
 const activeScreen = document.getElementById('activeScreen');
 const standbyScreen = document.getElementById('standbyScreen');
 const albumArt = document.getElementById('albumArt');
+const albumArtGlow = document.getElementById('albumArtGlow');
 const playbackIcon = document.getElementById('playbackIcon');
 const trackTitle = document.getElementById('trackTitle');
 const trackArtist = document.getElementById('trackArtist');
@@ -253,9 +254,11 @@ async function pollMediaStatus() {
         if (currentMedia.status === "playing") {
             playbackIcon.className = "playback-icon state-playing";
             waveVisualizer.classList.add('playing-wave');
+            if (albumArtGlow) albumArtGlow.classList.add('playing-glow');
         } else {
             playbackIcon.className = "playback-icon state-paused";
             waveVisualizer.classList.remove('playing-wave');
+            if (albumArtGlow) albumArtGlow.classList.remove('playing-glow');
         }
 
     } catch (err) {
