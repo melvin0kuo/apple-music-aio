@@ -26,6 +26,7 @@ const activeScreen = document.getElementById('activeScreen');
 const standbyScreen = document.getElementById('standbyScreen');
 const albumArt = document.getElementById('albumArt');
 const albumArtGlow = document.getElementById('albumArtGlow');
+const vinylDisc = document.getElementById('vinylDisc');
 const playbackIcon = document.getElementById('playbackIcon');
 const trackTitle = document.getElementById('trackTitle');
 const trackArtist = document.getElementById('trackArtist');
@@ -255,10 +256,12 @@ async function pollMediaStatus() {
             playbackIcon.className = "playback-icon state-playing";
             waveVisualizer.classList.add('playing-wave');
             if (albumArtGlow) albumArtGlow.classList.add('playing-glow');
+            if (vinylDisc) vinylDisc.classList.add('playing-disc');
         } else {
             playbackIcon.className = "playback-icon state-paused";
             waveVisualizer.classList.remove('playing-wave');
             if (albumArtGlow) albumArtGlow.classList.remove('playing-glow');
+            if (vinylDisc) vinylDisc.classList.remove('playing-disc');
         }
 
     } catch (err) {

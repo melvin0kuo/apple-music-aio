@@ -28,7 +28,7 @@ html, body {
     color: var(--text-primary);
 }
 
-/* Ambient Blur Background (Liquid Aurora) */
+/* Ambient Turntable Background */
 .ambient-bg {
     position: absolute;
     top: 0;
@@ -36,58 +36,69 @@ html, body {
     width: 100%;
     height: 100%;
     z-index: 1;
-    background-color: #040406;
+    background-color: #07070a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
 }
 
-.blob {
+/* The Vinyl Record Disc */
+.vinyl-disc {
     position: absolute;
-    width: 70%;
-    height: 70%;
+    width: 95vw;
+    height: 95vw;
+    max-width: 95%;
+    max-height: 95%;
     border-radius: 50%;
-    filter: blur(70px);
-    opacity: 0.45;
-    mix-blend-mode: screen;
-    transition: background 2s ease-in-out;
+    background: 
+        /* Conic highlights (reflection) */
+        conic-gradient(
+            from 0deg at 50% 50%,
+            rgba(255, 255, 255, 0) 0deg,
+            rgba(255, 255, 255, 0.05) 50deg,
+            rgba(255, 255, 255, 0) 100deg,
+            rgba(255, 255, 255, 0) 180deg,
+            rgba(255, 255, 255, 0.05) 230deg,
+            rgba(255, 255, 255, 0) 280deg
+        ),
+        /* Concentric record grooves */
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            #222226 0px,
+            #222226 1px,
+            #131316 2.2px,
+            #131316 4.4px
+        );
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.95), 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.01);
+    border: 3px solid #17171c;
+    opacity: 0.9;
+    transition: opacity 1s ease-in-out;
 }
 
-.blob-1 {
-    top: -15%;
-    left: -15%;
-    background: var(--theme-color-1);
-    animation: float-1 22s infinite alternate ease-in-out;
+/* Vinyl center label area (under the album cover) */
+.vinyl-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 53.5%;
+    height: 53.5%;
+    border-radius: 50%;
+    background: #09090b;
+    border: 1.5px solid #1a1a1f;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+    z-index: 1;
 }
 
-.blob-2 {
-    bottom: -15%;
-    right: -15%;
-    background: var(--theme-color-2);
-    animation: float-2 26s infinite alternate ease-in-out;
+/* Spin animation for the turntable */
+.playing-disc {
+    animation: spin-record 16s linear infinite;
 }
 
-.blob-3 {
-    top: 25%;
-    left: 15%;
-    background: var(--theme-color-3);
-    animation: float-3 20s infinite alternate ease-in-out;
-}
-
-@keyframes float-1 {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(15%, 10%) scale(1.15); }
-    100% { transform: translate(-5%, 15%) scale(0.95); }
-}
-
-@keyframes float-2 {
-    0% { transform: translate(0, 0) scale(1.1); }
-    50% { transform: translate(-10%, -15%) scale(0.85); }
-    100% { transform: translate(8%, -5%) scale(1.15); }
-}
-
-@keyframes float-3 {
-    0% { transform: translate(0, 0) scale(0.95); }
-    50% { transform: translate(5%, -10%) scale(1.05); }
-    100% { transform: translate(-12%, 8%) scale(1.0); }
+@keyframes spin-record {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .ambient-overlay {
