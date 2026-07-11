@@ -2,7 +2,7 @@
 
 [English Version Below](#english-version)
 
-這是一個專為 AIO 水冷 LCD 螢幕（例如 **NZXT Kraken Elite**）設計的本地伺服器與高質感網頁小工具，用於在您的水冷螢幕上顯示 Apple Music 目前正在播放的歌曲，並包含黑膠唱盤與動態漸層光暈特效。
+這是一個專為 AIO 水冷 LCD 螢幕（例如 **NZXT Kraken Elite**）設計的本地伺服器與高質感網頁小工具，用於在您的水冷螢幕上顯示 Apple Music 目前正在播放的歌曲，並包含動態極光與動態漸層光暈特效。
 
 ---
 
@@ -10,7 +10,7 @@
 
 ### 特色功能
 
-- **黑膠唱片背景特效 (Vinyl Turntable Background)**：背景為一個精緻的黑膠唱片，帶有真實的唱片同心圓細紋，在音樂播放時，唱片的光影反光會自動**慢速旋轉**。
+- **流體極光背景特效 (Liquid Aurora Background)**：背景由 3 個隨機漂移的多彩流體色球（Blobs）組成，並在播放音樂時動態融和，產生極具未來感且平滑的動態極光光暈。
 - **動態漸層光暈 (Rotating Album Glow)**：專輯封面外圍環繞著動態霓虹漸層光圈，播放時會旋轉並伴隨慢速呼吸淡入淡出。
 - **Apple Music 原生質感**：採用深色玻璃擬態（Glassmorphism）卡片設計、細緻陰影與現代 Outfit 幾何字型。
 - **60FPS 流暢進度條**：利用瀏覽器補幀，進度條移動如絲般順滑，告別每秒一跳的卡頓感。
@@ -57,11 +57,11 @@ python setup_startup.py
 
 ## English Version
 
-A highly polished web widget and local server designed for AIO liquid cooling LCD screens (like the NZXT Kraken Elite) to display what's currently playing on Apple Music (via Windows Store App or iTunes) with dynamic turntable and glowing ambient effects.
+A highly polished web widget and local server designed for AIO liquid cooling LCD screens (like the NZXT Kraken Elite) to display what's currently playing on Apple Music (via Windows Store App or iTunes) with dynamic liquid aurora and glowing ambient effects.
 
 ### Features
 
-- **Vinyl Turntable Background**: The background is a finely crafted vinyl disc with concentric record grooves. When music is playing, the conic radial light reflections rotate slowly.
+- **Liquid Aurora Background**: The background features 3 randomly drifting, colorful fluid blobs that blend organically to generate a futuristic, smooth animated aura.
 - **Rotating Album Glow**: An ambient neon gradient aura surrounds the album cover, rotating and pulsing with a breathing animation during active playback.
 - **Apple Music Aesthetics**: Dark glassmorphic cover card layout with modern geometric typography (Outfit font).
 - **60FPS Progress Bar**: Smoothly interpolates track position for continuous fluid animation instead of standard 1-second ticks.
