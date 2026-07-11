@@ -285,7 +285,7 @@ html, body {
 }
 
 .title {
-    font-size: 2.35rem;
+    font-size: 4.7rem;
     font-weight: 800;
     color: var(--text-primary);
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
@@ -463,7 +463,7 @@ html, body {
 
 /* Circular cropping safety zone for AIO screens (mostly aesthetic for web review) */
 @media (max-width: 600px) {
-    .title { font-size: 2.0rem; }
+    .title { font-size: 4.0rem; }
     .artist { font-size: 0.95rem; }
     .clock-face { width: 90%; padding: 25px; }
     .time-display { font-size: 2.8rem; }
@@ -491,7 +491,7 @@ html, body {
 }
 
 .circular-layout .title {
-    font-size: 1.85rem; /* Slightly smaller text */
+    font-size: 3.7rem; /* Slightly smaller text */
 }
 
 .circular-layout .artist {
