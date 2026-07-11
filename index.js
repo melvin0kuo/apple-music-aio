@@ -66,12 +66,14 @@ function setupMarquee(element, container, text) {
     if (!text) {
         element.textContent = "";
         element.className = element.classList.contains('title') ? 'title' : 'artist';
+        element.style.animationDuration = "";
         return;
     }
 
     // Reset styles
     element.textContent = text;
     element.className = element.classList.contains('title') ? 'title' : 'artist';
+    element.style.animationDuration = "";
     
     const containerWidth = container.clientWidth;
     const textWidth = element.scrollWidth;
@@ -80,6 +82,12 @@ function setupMarquee(element, container, text) {
         // Double the text for seamless scrolling
         element.innerHTML = `<span>${text}</span><span style="margin-left: 50px;">${text}</span>`;
         element.classList.add('marquee-active');
+        
+        // Calculate dynamic duration to maintain constant scroll speed (35px per second)
+        const scrollSpeed = 35; // pixels per second
+        const distance = textWidth + 50;
+        const duration = distance / scrollSpeed;
+        element.style.animationDuration = `${duration}s`;
     }
 }
 
