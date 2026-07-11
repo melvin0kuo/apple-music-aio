@@ -1,8 +1,8 @@
-# Apple Music AIO 水冷螢幕顯示小工具 (Apple Music AIO Display Widget)
+# Apple Music NZXT Kraken 水冷螢幕顯示小工具 (Apple Music Now Playing Widget for NZXT Kraken AIO)
 
 [English Version Below](#english-version)
 
-這是一個專為 AIO 水冷 LCD 螢幕（例如 **NZXT Kraken Elite**）設計的本地伺服器與高質感網頁小工具，用於在您的水冷螢幕上顯示 Apple Music 目前正在播放的歌曲，並包含動態極光與動態漸層光暈特效。
+這是一個專為 **NZXT Kraken / Elite** 等水冷 LCD 螢幕量身打造的本地伺服器與高質感 Apple Music 播放資訊顯示網頁小工具，讓您的水冷螢幕能動態顯示目前播放的歌曲、歌手與動態極光光暈特效。
 
 ---
 
@@ -55,9 +55,9 @@ python setup_startup.py
 
 ---
 
-## English Version
+# Apple Music Now Playing Widget for NZXT Kraken AIO
 
-A highly polished web widget and local server designed for AIO liquid cooling LCD screens (like the NZXT Kraken Elite) to display what's currently playing on Apple Music (via Windows Store App or iTunes) with dynamic liquid aurora and glowing ambient effects.
+A highly polished web widget and local server custom-tailored for **NZXT Kraken / Elite** AIO liquid cooler LCD displays to show what's currently playing on Apple Music (via Windows Store App or iTunes) with dynamic liquid aurora and glowing ambient effects.
 
 ### Features
 
