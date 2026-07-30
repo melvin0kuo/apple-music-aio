@@ -21,15 +21,23 @@ media_state = {
 }
 state_lock = threading.Lock()
 
-# Flag to check if winsdk is installed
+# Flag to check if winrt/winsdk is installed
 HAS_WINSDK = False
 try:
-    from winsdk.windows.media.control import GlobalSystemMediaTransportControlsSessionManager as MediaManager
-    from winsdk.windows.media.control import GlobalSystemMediaTransportControlsSessionPlaybackStatus as PlaybackStatus
-    from winsdk.windows.storage.streams import DataReader
+    # Try winrt first (recommended for Python 3.12+)
+    from winrt.windows.media.control import GlobalSystemMediaTransportControlsSessionManager as MediaManager
+    from winrt.windows.media.control import GlobalSystemMediaTransportControlsSessionPlaybackStatus as PlaybackStatus
+    from winrt.windows.storage.streams import DataReader
     HAS_WINSDK = True
 except ImportError:
-    print("Warning: winsdk is not installed. Please install it using: pip install winsdk", file=sys.stderr)
+    try:
+        # Fallback to winsdk
+        from winsdk.windows.media.control import GlobalSystemMediaTransportControlsSessionManager as MediaManager
+        from winsdk.windows.media.control import GlobalSystemMediaTransportControlsSessionPlaybackStatus as PlaybackStatus
+        from winsdk.windows.storage.streams import DataReader
+        HAS_WINSDK = True
+    except ImportError:
+        print("Warning: winrt/winsdk is not installed. Please install it using: pip install winrt-Windows.Media.Control winrt-Windows.Storage.Streams winrt-Windows.Foundation", file=sys.stderr)
 
 async def get_media_info():
     if not HAS_WINSDK:
