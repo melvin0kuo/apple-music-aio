@@ -23,9 +23,15 @@
 
 #### 1. 安裝環境與套件
 請確保您的 Windows 已安裝 Python，然後打開終端機（PowerShell）安裝 Windows 系統控制綁定庫：
-```bash
-pip install winsdk
-```
+
+- **對於 Python 3.12 或更新版本（推薦）**：
+  ```bash
+  pip install winrt-Windows.Media.Control winrt-Windows.Storage.Streams winrt-Windows.Foundation
+  ```
+- **對於 Python 3.11 或更舊版本**：
+  ```bash
+  pip install winsdk
+  ```
 
 #### 2. 啟動伺服器
 進入專案資料夾並執行：
@@ -73,9 +79,14 @@ A highly polished web widget and local server custom-tailored for **NZXT Kraken 
 ### Setup & Running
 
 1. **Install Dependencies**:
-   ```bash
-   pip install winsdk
-   ```
+   * **For Python 3.12+ (Recommended)**:
+     ```bash
+     pip install winrt-Windows.Media.Control winrt-Windows.Storage.Streams winrt-Windows.Foundation
+     ```
+   * **For Python 3.11 or older**:
+     ```bash
+     pip install winsdk
+     ```
 2. **Run Server**:
    ```bash
    python server.py
